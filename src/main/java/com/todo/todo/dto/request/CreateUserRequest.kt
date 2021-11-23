@@ -5,7 +5,7 @@ import javax.validation.constraints.NotBlank
 
 data class CreateUserRequest(
 
-    @field:NotBlank(message = "the name value must not be empty or null")
+    @field:NotBlank(message = "Name value must not be empty or null")
     val name: String,
 
     @field:NotBlank

@@ -7,6 +7,7 @@ import com.todo.todo.exception.NotFoundException;
 import com.todo.todo.model.ToDoList;
 import com.todo.todo.model.User;
 import com.todo.todo.repository.ToDoListRepository;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -53,7 +54,7 @@ public class ToDoListService {
         return toDoListDtoConverter.convertToToDoListDtoList(getAllToDoListByUserId(userId));
     }
 
-    public ToDoListDto createToDoList(String userId, CreateToDoListRequest request) {
+    public ToDoListDto createToDoList(String userId, @NotNull CreateToDoListRequest request) {
 
         User user = userService.findByUserId(userId);
 
@@ -69,7 +70,6 @@ public class ToDoListService {
 
         getToDoListById(toDoListId);
         toDoListRepository.deleteById(toDoListId);
-
         return toDoListId + " deleted";
     }
 

@@ -6,6 +6,7 @@ import com.todo.todo.dto.UserDto;
 import com.todo.todo.dto.request.CreateToDoItemRequest;
 import com.todo.todo.dto.request.CreateToDoListRequest;
 import com.todo.todo.dto.request.CreateUserRequest;
+import com.todo.todo.dto.request.UpdateToDoItemRequest;
 import com.todo.todo.service.ToDoItemService;
 import com.todo.todo.service.ToDoListService;
 import com.todo.todo.service.UserService;
@@ -34,7 +35,7 @@ public class UserController {
         this.toDoItemService = toDoItemService;
     }
 
-    @GetMapping()
+    @GetMapping("/all")
     public ResponseEntity<List<UserDto>> getAllUsers() {
         return ResponseEntity.ok(userService.getUserList());
     }
@@ -44,7 +45,7 @@ public class UserController {
         return ResponseEntity.ok(userService.getUserById(userId));
     }
 
-    @GetMapping("/{userId}/todo")
+    @GetMapping("/{userId}/todos")
     public ResponseEntity<List<ToDoListDto>> getAllToDoListById(@PathVariable String userId) {
         return ResponseEntity.ok(toDoListService.getAllToDoListDtoByUserId(userId));
     }
@@ -60,14 +61,28 @@ public class UserController {
     }
 
     @PostMapping("/{userId}")
-    public ResponseEntity<ToDoListDto> createToDoList(@PathVariable String userId, @Valid @RequestBody CreateToDoListRequest request) {
+    public ResponseEntity<ToDoListDto> createToDoList(@PathVariable String userId,
+                                                      @Valid @RequestBody CreateToDoListRequest request) {
+
         return ResponseEntity.ok(toDoListService.createToDoList(userId, request));
     }
 
     @PostMapping("/{userId}/todo/{toDoListId}")
-    public ResponseEntity<ToDoItemDto> createToDoItem(@PathVariable String userId ,@PathVariable String toDoListId, @Valid @RequestBody CreateToDoItemRequest request) {
+    public ResponseEntity<ToDoItemDto> createToDoItem(@PathVariable String userId ,
+                                                      @PathVariable String toDoListId,
+                                                      @Valid @RequestBody CreateToDoItemRequest request){
+
         return ResponseEntity.ok(toDoItemService.createToDoItem(userId,toDoListId,request));
     }
+
+    @PutMapping("/{userId}/todo/{toDoListId}/item/{toDoItemId}")
+    public ResponseEntity<ToDoItemDto> updateToDoItem(@PathVariable String userId,
+                                                      @PathVariable String toDoListId,
+                                                      @PathVariable String toDoItemId,
+                                                      @Valid @RequestBody UpdateToDoItemRequest request) {
+        return ResponseEntity.ok(toDoItemService.updateToDoItem(userId, toDoListId, toDoItemId,request));
+    }
+
 
     @DeleteMapping("/{userId}")
     public ResponseEntity<String> deleteUser(@PathVariable String userId) {
@@ -78,6 +93,7 @@ public class UserController {
     public ResponseEntity<String> deleteToDoList(@PathVariable String toDoListId) {
         return ResponseEntity.ok(toDoListService.deleteToDoList(toDoListId));
     }
+
 
    /* @PutMapping("/{userId}")
     public ResponseEntity<UserDto> updateUser(@PathVariable String userId,

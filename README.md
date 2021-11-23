@@ -11,6 +11,10 @@ Added `Open API/Swagger` for this project.
 [![](./img/open-api.PNG "OpenAPI-Swagger")](https://github.com/MrSerbes/)
 
 
+## Run & Build
+
+For maven usage
+
 ## Lisans
 
 Bu repo [MrSerbes](https://github.com/mrserbes) tarafından işe alım sürecinde oluşturulmuştur. [GNU GPLv3](https://choosealicense.com/licenses/gpl-3.0/) lisansına
