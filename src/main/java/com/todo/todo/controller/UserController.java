@@ -29,7 +29,10 @@ public class UserController {
     private final ToDoListService toDoListService;
     private final ToDoItemService toDoItemService;
 
-    public UserController(UserService userService, ToDoListService toDoListService, ToDoItemService toDoItemService) {
+    public UserController(UserService userService,
+                          ToDoListService toDoListService,
+                          ToDoItemService toDoItemService) {
+
         this.userService = userService;
         this.toDoListService = toDoListService;
         this.toDoItemService = toDoItemService;
@@ -80,6 +83,7 @@ public class UserController {
                                                       @PathVariable String toDoListId,
                                                       @PathVariable String toDoItemId,
                                                       @Valid @RequestBody UpdateToDoItemRequest request) {
+
         return ResponseEntity.ok(toDoItemService.updateToDoItem(userId, toDoListId, toDoItemId,request));
     }
 
@@ -92,6 +96,11 @@ public class UserController {
     @DeleteMapping("/{userId}/todo/{toDoListId}")
     public ResponseEntity<String> deleteToDoList(@PathVariable String toDoListId) {
         return ResponseEntity.ok(toDoListService.deleteToDoList(toDoListId));
+    }
+
+    @DeleteMapping("/{userId}/todo/{toDoListId}/item/{toDoItemId}")
+    public ResponseEntity<String> deleteToDoItem(@PathVariable String toDoItemId) {
+        return ResponseEntity.ok(toDoItemService.deleteToDoItem(toDoItemId));
     }
 
 
